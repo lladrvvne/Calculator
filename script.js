@@ -7,12 +7,31 @@ class Calculator {
         this.operator = '';
         this.waitingForNewInput = false;
         this.memory = 0;
+        this.maxDisplayLength = 12;
+        this.isError = false;
         
         this.updateDisplay();
     }
 
     updateDisplay() {
-        this.display.value = this.currentInput;
+        let displayValue = this.currentInput;
+    
+        if (this.isError) {
+            this.display.style.color = '#e74c3c';
+        } else {
+            this.display.style.color = 'white';
+        }
+        
+        // Ограничение длины для дисплея
+        if (displayValue.length > this.maxDisplayLength) {
+            if (displayValue.includes('.')) {
+                displayValue = parseFloat(displayValue).toPrecision(this.maxDisplayLength - 2);
+            } else {
+                displayValue = displayValue.substring(0, this.maxDisplayLength);
+            }
+        }
+        
+        this.display.value = displayValue;
     }
 
     appendNumber(number) {
@@ -48,56 +67,73 @@ class Calculator {
     }
 
     calculate() {
+    if (this.isError) {
+        this.clearDisplay();
+        return;
+    }
+
     let computation;
     const prev = parseFloat(this.previousInput);
     const current = parseFloat(this.currentInput);
 
     if (isNaN(prev) || isNaN(current)) return;
 
-    switch (this.operator) {
-        case '+':
-            computation = prev + current;
-            break;
-        case '-':
-            computation = prev - current;
-            break;
-        case '*':
-            computation = prev * current;
-            break;
-        case '/':
-            if (current === 0) {
-                computation = 'Ошибка: деление на 0';
-            } else {
+    try {
+        switch (this.operator) {
+            case '+':
+                computation = prev + current;
+                break;
+            case '-':
+                computation = prev - current;
+                break;
+            case '*':
+                computation = prev * current;
+                break;
+            case '/':
+                if (current === 0) {
+                    throw new Error('Деление на ноль');
+                }
                 computation = prev / current;
-            }
-            break;
-        case '^':
-            computation = Math.pow(prev, current);
-            break;
-        case '%':
-            if (current === 0) {
-                computation = 'Ошибка: деление на 0';
-            } else {
+                break;
+            case '^':
+                computation = Math.pow(prev, current);
+                break;
+            case '%':
+                if (current === 0) {
+                    throw new Error('Деление на ноль');
+                }
                 computation = prev % current;
-            }
-            break;
-        default:
-            return;
-    }
+                break;
+            default:
+                return;
+        }
 
-    this.currentInput = computation.toString();
-    this.operator = '';
-    this.previousInput = '';
-    this.waitingForNewInput = true;
-    this.updateDisplay();
-    }
-    clearDisplay() {
-        this.currentInput = '0';
-        this.previousInput = '';
+        if (isNaN(computation) || !isFinite(computation)) {
+            throw new Error('Математическая ошибка');
+        }
+
+        this.currentInput = computation.toString();
         this.operator = '';
-        this.waitingForNewInput = false;
-        this.updateDisplay();
+        this.previousInput = '';
+        this.waitingForNewInput = true;
+        this.isError = false;
+        
+    } catch (error) {
+        this.currentInput = error.message;
+        this.isError = true;
     }
+    
+    this.updateDisplay();
+}   
+
+    clearDisplay() {
+    this.currentInput = '0';
+    this.previousInput = '';
+    this.operator = '';
+    this.waitingForNewInput = false;
+    this.isError = false;
+    this.updateDisplay();
+}
 
     clearEntry() {
         this.currentInput = '0';
