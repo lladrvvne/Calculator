@@ -71,6 +71,16 @@ class Calculator {
                 computation = prev / current;
             }
             break;
+        case '^':
+            computation = Math.pow(prev, current);
+            break;
+        case '%':
+            if (current === 0) {
+                computation = 'Ошибка: деление на 0';
+            } else {
+                computation = prev % current;
+            }
+            break;
         default:
             return;
     }
@@ -81,7 +91,6 @@ class Calculator {
     this.waitingForNewInput = true;
     this.updateDisplay();
     }
-
     clearDisplay() {
         this.currentInput = '0';
         this.previousInput = '';
@@ -102,6 +111,73 @@ class Calculator {
             this.currentInput = '0';
         }
         this.updateDisplay();
+    }
+    calculateSin() {
+    const value = parseFloat(this.currentInput);
+    if (!isNaN(value)) {
+        const radians = value * Math.PI / 180;
+        this.currentInput = Math.sin(radians).toString();
+        this.waitingForNewInput = true;
+        this.updateDisplay();
+        }
+    }   
+
+    calculateCos() {
+        const value = parseFloat(this.currentInput);
+        if (!isNaN(value)) {
+            const radians = value * Math.PI / 180;
+            this.currentInput = Math.cos(radians).toString();
+            this.waitingForNewInput = true;
+            this.updateDisplay();
+        }
+    }
+
+    calculatePower() {
+        if (this.previousInput !== '' && this.operator && !this.waitingForNewInput) {
+            this.calculate();
+        }
+        this.operator = '^';
+        this.previousInput = this.currentInput;
+        this.waitingForNewInput = true;
+    }
+
+    calculateSquareRoot() {
+        const value = parseFloat(this.currentInput);
+        if (!isNaN(value) && value >= 0) {
+            this.currentInput = Math.sqrt(value).toString();
+            this.waitingForNewInput = true;
+            this.updateDisplay();
+        } else {
+            this.currentInput = 'Ошибка';
+            this.updateDisplay();
+        }
+    }
+
+    calculateFloor() {
+        const value = parseFloat(this.currentInput);
+        if (!isNaN(value)) {
+            this.currentInput = Math.floor(value).toString();
+            this.waitingForNewInput = true;
+            this.updateDisplay();
+        }
+    }
+
+    calculateCeil() {
+        const value = parseFloat(this.currentInput);
+        if (!isNaN(value)) {
+            this.currentInput = Math.ceil(value).toString();
+            this.waitingForNewInput = true;
+            this.updateDisplay();
+        }
+    }
+
+    calculateModulo() {
+        if (this.previousInput !== '' && this.operator && !this.waitingForNewInput) {
+            this.calculate();
+        }
+        this.operator = '%';
+        this.previousInput = this.currentInput;
+        this.waitingForNewInput = true;
     }
 }
 
@@ -137,33 +213,32 @@ function backspace() {
     calculator.backspace();
 }
 
-// Заглушки для остальных функций
 function calculateSin() {
-    alert('Функция sin будет реализована позже');
+    calculator.calculateSin();
 }
 
 function calculateCos() {
-    alert('Функция cos будет реализована позже');
+    calculator.calculateCos();
 }
 
 function calculatePower() {
-    alert('Функция возведения в степень будет реализована позже');
+    calculator.calculatePower();
 }
 
 function calculateSquareRoot() {
-    alert('Функция квадратного корня будет реализована позже');
+    calculator.calculateSquareRoot();
 }
 
 function calculateFloor() {
-    alert('Функция floor будет реализована позже');
+    calculator.calculateFloor();
 }
 
 function calculateCeil() {
-    alert('Функция ceil будет реализована позже');
+    calculator.calculateCeil();
 }
 
 function calculateModulo() {
-    alert('Функция остатка от деления будет реализована позже');
+    calculator.calculateModulo();
 }
 
 function memoryClear() {
