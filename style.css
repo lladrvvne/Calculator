@@ -119,3 +119,45 @@ body {
 .scientific:hover {
     background: #2980b9;
 }
+
+/* Стили для контейнера истории (Агафонов А. В.)*/
+.history-container {
+    background: #34495e;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.history-title {
+    color: #ecf0f1;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.history-list {
+    color: #bdc3c7;
+    font-size: 0.8em;
+    line-height: 1.4;
+}
+
+.history-item {
+    padding: 2px 0;
+    border-bottom: 1px solid #2c3e50;
+}
+
+.history-clear {
+    background: #95a5a6;
+    color: white;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 0.8em;
+    height: 30px;
+}
+
+.history-clear:hover {
+    background: #7f8c8d;
+}
