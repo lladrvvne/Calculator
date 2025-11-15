@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="display" readonly>
+        </div>
+        <!-- Блок истории (Агафонов А. В.) -->
+        <div class="history-container">
+            <div class="history-title">История вычислений</div>
+            <div id="history" class="history-list"></div>
+            <button class="btn history-clear" onclick="clearHistory()">Очистить историю</button>
+        </div>
+
+        <div class="buttons">
+            <!-- Блок памяти -->
+            <button class="btn memory" onclick="memoryClear()">MC</button>
+            <button class="btn memory" onclick="memoryRecall()">MR</button>
+            <button class="btn memory" onclick="memoryAdd()">M+</button>
+            <button class="btn memory" onclick="memorySubtract()">M-</button>
+            
+            <!-- Блок очистки -->
+            <button class="btn clear" onclick="clearDisplay()">C</button>
+            <button class="btn clear" onclick="clearEntry()">CE</button>
+            <button class="btn clear" onclick="backspace()">⌫</button>
+            <button class="btn operator" onclick="appendOperator('/')">/</button>
+            
+            <!-- Цифры и операции -->
+            <button class="btn number" onclick="appendNumber('7')">7</button>
+            <button class="btn number" onclick="appendNumber('8')">8</button>
+            <button class="btn number" onclick="appendNumber('9')">9</button>
+            <button class="btn operator" onclick="appendOperator('*')">×</button>
+            
+            <button class="btn number" onclick="appendNumber('4')">4</button>
+            <button class="btn number" onclick="appendNumber('5')">5</button>
+            <button class="btn number" onclick="appendNumber('6')">6</button>
+            <button class="btn operator" onclick="appendOperator('-')">-</button>
+            
+            <button class="btn number" onclick="appendNumber('1')">1</button>
+            <button class="btn number" onclick="appendNumber('2')">2</button>
+            <button class="btn number" onclick="appendNumber('3')">3</button>
+            <button class="btn operator" onclick="appendOperator('+')">+</button>
+            
+            <button class="btn number" onclick="appendNumber('0')">0</button>
+            <button class="btn number" onclick="appendDecimal()">.</button>
+            <button class="btn equals" onclick="calculate()">=</button>
+            
+            <!-- Научные функции -->
+            <button class="btn scientific" onclick="calculateSin()">sin</button>
+            <button class="btn scientific" onclick="calculateCos()">cos</button>
+            <button class="btn scientific" onclick="calculatePower()">x^y</button>
+            <button class="btn scientific" onclick="calculateSquareRoot()">√</button>
+            <button class="btn scientific" onclick="calculateFloor()">floor</button>
+            <button class="btn scientific" onclick="calculateCeil()">ceil</button>
+            <button class="btn scientific" onclick="calculateModulo()">%</button>
+
+            <!-- История изменений (Агафонов А. В.)-->
+            <button class="btn memory" onclick="memoryClear()">MC</button>
+            <button class="btn memory" onclick="memoryRecall()">MR</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="test_sin.js"></script>
+    <script src="test_cos.js"></script>
+    <script src="test_square.js"></script>
+    <script src="test_floor.js"></script>
+</body>
+</html>
