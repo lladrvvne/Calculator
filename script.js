@@ -391,3 +391,7 @@ function memorySubtract() {
 function clearHistory() {
     calculator.clearHistory();
 }
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Calculator;
+}
